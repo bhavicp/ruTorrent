@@ -6,7 +6,6 @@
 
 var theUILang =
 {
- kbs				: "kB/s",
  General			: "Γενικά",
  Downloads			: "Λήψεις",
  Connection			: "Σύνδεση",
@@ -83,11 +82,11 @@ var theUILang =
  Logger 			: "Καταγραφέας",
  s				: "s", // part of "KB/s"
  bytes				: "bytes",
- KB				: "KB",
- MB				: "MB",
- GB				: "GB",
- TB				: "TB",
- PB				: "PB",
+ KB				: "KiB",
+ MB				: "MiB",
+ GB				: "GiB",
+ TB				: "TiB",
+ PB				: "PiB",
  Loading			: "Φόρτωση...",
  Torrent_file			: "Αρχείο Torrent",
  Torrent_URL			: "URL του Torrent",
@@ -155,8 +154,6 @@ var theUILang =
  EnableTracker			: "Ενεργοποίηση",
  ClientVersion			: "Πρόγραμμα-πελάτης",
  Flags				: "Κατάσταση σύνδεσης",
- PeerDL				: "DL χρήστη",
- PeerDownloaded			: "Ο χρήστης έλαβε",
  ReqTimeout			: "Λήξη αιτήματος",
  GetTrackerMessage		: "Λήψη μηνυμάτων από τον tracker",
  Help				: "Βοήθεια",
@@ -242,6 +239,7 @@ var theUILang =
  scrapeUpdate			: "Τελευταία ενημέρωση",
  trkInterval			: "Διάστημα",
  logAutoSwitch			: "Αυτόματη μετάβαση στην καρτέλα 'Καταγραφέας'",
+ showLabelSize			: "Προβολή συνολικού μεγέθους ανά ετικέτα",
  phpParameterUnavailable	: "Η οδηγία register_argc_argv της PHP είναι ορισμένη στο OFF. Αλλάξτε τη σε ON, αλλιώς κάποια πρόσθετα δεν θα λειτουργούν σωστά.",
  addTorrentFailedURL		: "Αποτυχία προσθήκης αρχείου torrent. Αδυναμία ανάκτησης URL.",
  addTorrentFailedFile		: "Αποτυχία προσθήκης αρχείου torrent. Το ανακτημένο περιεχόμενο δεν είναι έγκυρο αρχείο torrent.",
@@ -270,6 +268,9 @@ var theUILang =
  badTempPath 			: "Ο χρήστης του διακομιστή Web δεν έχει δικαιώματα  για ανάγνωση/εγγραφή/εκτέλεση στο φάκελο tmp. Το ruTorrent δεν θα λειτουργήσει.",
  badTempPath2			: "Ο χρήστης του rTorrent πρέπει να έχει δικαιώματα  για ανάγνωση/εγγραφή/εκτέλεση στο φάκελο tmp. Το ruTorrent δεν θα λειτουργήσει.",
  doRandomizeHash		: "Δημιουργία τυχαίων info hashes για cross-seeding", //Needs further review in the future...
- Recreate_files			: "Δρομολόγηση επαναδημιουργίας αρχείων",
- Address			: "Διεύθυνση"
+ Recreate_files 		: "Δρομολόγηση επαναδημιουργίας αρχείων",
+ Address			: "Διεύθυνση",
+ PeerDL 			: "DL χρήστη",
+ PeerDownloaded 		: "Ο χρήστης έλαβε",
+ Save_path			: "Τοποθεσία αποθήκευσης"
 };

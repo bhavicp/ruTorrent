@@ -8,7 +8,6 @@
 
 var theUILang =
 {
- kbs				: "kB/s",
  General			: "Allgemein",
  Downloads			: "Downloads",
  Connection			: "Verbindung",
@@ -85,11 +84,11 @@ var theUILang =
  Logger 			: "Log",
  s				: "s", // part of "KB/s"
  bytes				: "Bytes",
- KB				: "kB",
- MB				: "MB",
- GB				: "GB",
- TB				: "TB",
- PB				: "PB",
+ KB				: "KiB",
+ MB				: "MiB",
+ GB				: "GiB",
+ TB				: "TiB",
+ PB				: "PiB",
  Loading			: "Lade rTorrent WebUI in Deutsch...",
  Torrent_file			: "Torrent Datei",
  Torrent_URL			: "Torrent URL",
@@ -157,8 +156,6 @@ var theUILang =
  EnableTracker			: "Aktivieren",
  ClientVersion			: "Client",
  Flags				: "Flags",
- PeerDL				: "Peer DL",
- PeerDownloaded			: "Peer Downloaded",
  ReqTimeout			: "Request timeout",
  GetTrackerMessage		: "Receive messages from tracker",
  Help				: "Hilfe",
@@ -244,6 +241,7 @@ var theUILang =
  scrapeUpdate			: "Zuletzt aktualisiert",
  trkInterval			: "Intervall",
  logAutoSwitch			: "Autoswitch to 'Log' tab",
+ showLabelSize			: "Show label size",
  phpParameterUnavailable	: "PHP Direktive register_argc_argv wurde auf OFF gesetzt. Ändere dies zu ON, andernfalls werden einige Plugins nicht richtig funktionieren.",
  addTorrentFailedURL		: "Fehler beim hinzufügen eines Torrent. URL kann nicht abgerufen werden.",
  addTorrentFailedFile		: "Fehler beim hinzufügen eines Torrent. Die abgerufene Datei ist keine gültige Torrentdatei.",
@@ -272,6 +270,9 @@ var theUILang =
  badTempPath 			: "Webserver Benutzer hat nicht read/write/execute Berechtigungen auf das tmp Verzeichnis. ruTorrent wird nicht funktionieren.",
  badTempPath2			: "rTorrent Benutzer muss have read/execute Berechtigungen auf das tmp Verzeichnis haben. ruTorrent wird nicht funktionieren.",
  doRandomizeHash		: "Randomize info hashes for cross-seeding",
- Recreate_files			: "Queue files recreation",
- Address			: "Address"
+ Recreate_files 		: "Queue files recreation",
+ Address			: "Address",
+ PeerDL 			: "Peer DL",
+ PeerDownloaded 		: "Peer Downloaded",
+ Save_path			: "Save path"
 };

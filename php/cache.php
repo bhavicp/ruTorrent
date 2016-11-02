@@ -5,7 +5,7 @@ class rCache
 {
 	protected $dir;
 
-	public function rCache( $name = '' )
+	public function __construct( $name = '' )
 	{
 		$this->dir = getSettingsPath().$name;
 		if(!is_dir($this->dir))
@@ -49,7 +49,7 @@ class rCache
 					flock( $fp, LOCK_UN );
         				if(fclose( $fp ) !== false)
         				{
-	       					rename( $name.'.tmp', $name );
+	       					@rename( $name.'.tmp', $name );
 						@chmod($name,$profileMask & 0666);
 	        				return(true);
 					}

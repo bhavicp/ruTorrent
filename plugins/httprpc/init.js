@@ -24,8 +24,8 @@ rTorrentStub.prototype.listResponse = function(data)
 {
         if(this.dataType == "json")
         {
-	        var ret = { labels: {}, torrents: {} };
-        	theRequestManager.cid = data.cid;
+			var ret = { labels: {}, labels_size: {}, torrents: {} };
+			theRequestManager.cid = data.cid;
 		if(data.d)
 			$.each( data.d, function( ndx, hash )
 			{
@@ -88,9 +88,15 @@ rTorrentStub.prototype.listResponse = function(data)
 			if(torrent.label.length>0)
 			{
 				if(!$type(ret.labels[torrent.label]))
+				{
 					ret.labels[torrent.label] = 1;
+					ret.labels_size[torrent.label] = parseInt(torrent.size);
+				}
 				else
+				{
 					ret.labels[torrent.label]++;
+					ret.labels_size[torrent.label] = parseInt(ret.labels_size[torrent.label]) + parseInt(torrent.size);
+				}
 			}
 
 			var get_peers_not_connected = iv(values[16]);
@@ -105,6 +111,9 @@ rTorrentStub.prototype.listResponse = function(data)
 			torrent.state_changed = values[21];
 			torrent.skip_total = values[22];
 			torrent.base_path = values[25];
+			var pos = torrent.base_path.lastIndexOf('/');
+			torrent.save_path = (torrent.base_path.substring(pos+1) === torrent.name) ? 
+				torrent.base_path.substring(0,pos) : torrent.base_path;
 			torrent.created = values[26];
 			torrent.tracker_focus = values[27];
 			try {

@@ -23,7 +23,7 @@ class rRSS
 	private $atomtags = array('title', 'updated');
 	private $entrytags = array('title', 'link', 'updated', 'content', 'summary');
 
-	public function rRSS( $url = null )
+	public function __construct( $url = null )
 	{
 		$this->version = 1;
 		if($url)
@@ -124,7 +124,7 @@ class rRSS
 			$headers['If-None-Match'] = trim($this->etag);
 		if($this->lastModified)
 	                $headers['If-Last-Modified'] = trim($this->lastModified);
-		$cli = self::fetchURL($this->url,null,$headers);
+		$cli = self::fetchURL($this->url,$this->cookies,$headers);
 		if($cli->status==304)
 			return(true);
 		$this->etag = null;
@@ -407,7 +407,7 @@ class rRSSHistory
 	public $changed = false;
 	public $version = 0;
 
-	public function rRSSHistory()
+	public function __construct()
 	{
 		$this->version = 2;
 	}
@@ -531,7 +531,7 @@ class rRSSFilter
 		'${21}', '${22}', '${23}', '${24}', '${25}', '${26}', '${27}', '${28}', '${29}', '${30}',
 	);
 
-	public function	rRSSFilter( $name, $pattern = '', $exclude = '', $enabled = 0, $rssHash = '', 
+	public function	__construct( $name, $pattern = '', $exclude = '', $enabled = 0, $rssHash = '', 
 		$start = 0, $addPath = 1, $directory = null, $label = null, 
 		$titleCheck = 1, $descCheck = 0, $linkCheck = 0,
 		$throttle = null, $ratio = null, $no = -1, $interval = -1 )
@@ -659,7 +659,7 @@ class rRSSGroup
 	public $hash;
 	public $lst = array();
 
-	public function	rRSSGroup( $name, $hash = null )
+	public function	__construct( $name, $hash = null )
 	{
 		$this->name = $name;
 		if(is_null($hash))
@@ -832,7 +832,7 @@ class rRSSManager
 	public $groups = null;
 	public $data = null;
 
-	public function rRSSManager()
+	public function __construct()
 	{
 		$this->cache  = new rCache( '/rss/cache' );
 		$this->rssList = new rRSSMetaList();
@@ -871,6 +871,25 @@ class rRSSManager
 	public function getModified($obj = null)
 	{
 		return($this->cache->getModified($obj));
+	}
+	protected function changeFiltersHash($oldHash,$newHash)
+	{
+error_log("From ".$oldHash." to ".$newHash);
+		$flts = new rRSSFilterList();
+                $this->cache->get($flts);
+		$changed = false;
+		foreach($flts->lst as $filter)
+		{
+error_log($filter->rssHash);
+			if($filter->rssHash==$oldHash)
+			{
+error_log("!!!");
+				$filter->rssHash = $newHash;
+				$changed = true;
+			}
+		}
+		if($changed)
+			$this->cache->set($flts);
 	}
         public function loadFilters()
 	{
@@ -1184,7 +1203,9 @@ class rRSSManager
 		$rssOld->hash = $hash;
 		$rssLabel = trim($rssLabel);
 		if(!$this->rssList->isExist($rssOld))
+		{
 			return($this->add($rssURL, $rssLabel, $rssAuto, 1));
+		}
 		else
 		{
 			$rssNew = new rRSS($rssURL);
@@ -1198,6 +1219,7 @@ class rRSSManager
 			{
 				$enabled = $this->rssList->getEnabled($rssOld);
 				$this->remove($hash);
+				$this->changeFiltersHash($hash,$rssNew->hash);
 				$this->add($rssURL, $rssLabel, $rssAuto, $enabled);
 			}
 		}

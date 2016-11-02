@@ -982,9 +982,10 @@ rTorrentStub.prototype.getalltrackersResponse = function(xml)
 
 rTorrentStub.prototype.listResponse = function(xml)
 {
-        var ret = {};
-        ret.torrents = {};
-        ret.labels = {};
+	var ret = {};
+	ret.torrents = {};
+	ret.labels = {};
+	ret.labels_size = {};
 	var datas = xml.getElementsByTagName('data');
 	var self = this;
 	for(var j=1;j<datas.length;j++)
@@ -1033,9 +1034,15 @@ rTorrentStub.prototype.listResponse = function(xml)
 		if(torrent.label.length>0)
 		{
 			if(!$type(ret.labels[torrent.label]))
+			{
 				ret.labels[torrent.label] = 1;
+				ret.labels_size[torrent.label] = parseInt(torrent.size);
+			}
 			else
+			{
 				ret.labels[torrent.label]++;
+				ret.labels_size[torrent.label] = parseInt(ret.labels_size[torrent.label]) + parseInt(torrent.size);
+			}
 		}
 		var get_peers_not_connected = parseInt(this.getValue(values,17));
 		var get_peers_connected = parseInt(this.getValue(values,18));
@@ -1049,6 +1056,9 @@ rTorrentStub.prototype.listResponse = function(xml)
 		torrent.state_changed = this.getValue(values,22);
 		torrent.skip_total = this.getValue(values,23);
 		torrent.base_path = this.getValue(values,26);
+		var pos = torrent.base_path.lastIndexOf('/');
+		torrent.save_path = (torrent.base_path.substring(pos+1) === torrent.name) ? 
+			torrent.base_path.substring(0,pos) : torrent.base_path;
 		torrent.created = this.getValue(values,27);
 		torrent.tracker_focus = this.getValue(values,28);
 		try {

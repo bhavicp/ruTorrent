@@ -1,6 +1,7 @@
 <?php
 require_once( '../../php/util.php' );
 require_once( '../../php/settings.php' );
+eval(getPluginConf("_getdir"));
 
 function compareEntries( $a, $b )
 {
@@ -36,6 +37,7 @@ if(isset($_REQUEST['mode']))
 			}
 			$output["labels"] = array_keys($labels);
 			natcasesort($output["labels"]);
+			$output["labels"] = array_values($output["labels"]);
 		}
 	}
 	if(in_array("dirlist",$modes))
@@ -51,6 +53,7 @@ if(isset($_REQUEST['mode']))
 			if( $dh &&
 				((strpos($dir,$topDirectory)!==0) ||
 				(($theSettings->uid>=0) &&
+				$checkUserPermissions &&
 				!isUserHavePermission($theSettings->uid,$theSettings->gid,$dir,0x0007))))
 			{
 				closedir($dh);
@@ -75,7 +78,7 @@ if(isset($_REQUEST['mode']))
 					continue;
 				if(is_dir($path) && is_readable($path) &&
 					(strpos(addslash($path),$topDirectory)===0) &&
-					( $theSettings->uid<0 || isUserHavePermission($theSettings->uid,$theSettings->gid,$path,0x0007))
+					( $theSettings->uid<0 || !$checkUserPermissions || isUserHavePermission($theSettings->uid,$theSettings->gid,$path,0x0007) )
 					)
 				{
 					$files[] = $file;
@@ -107,4 +110,4 @@ if(isset($_REQUEST['mode']))
 	}
 }
 
-cachedEcho(json_encode($output),"application/json");
+cachedEcho(safe_json_encode($output),"application/json");

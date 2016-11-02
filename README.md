@@ -2,10 +2,12 @@
 
 ruTorrent is a front-end for the popular Bittorrent client [rtorrent](http://rakshasa.github.io/rtorrent).
 
+This project is released under the GPLv3 license, for more details, take a look at the LICENSE.md file in the source.
+
 ##Main features
 
 * Lightweight server side, so it can be installed on old and low-end servers and even on some SOHO routers
-* Extensible - there are several plugins and everybody can create his own one
+* Extensible - there are several plugins and everybody can create their own one
 * Nice look ;) 
 
 ##Screenshots
@@ -25,4 +27,4 @@ ruTorrent is a front-end for the popular Bittorrent client [rtorrent](http://rak
   * After setting up the webserver `ruTorrent` itself needs to be configured. Instructions can be found in various articles in the [wiki](https://github.com/Novik/ruTorrent/wiki).
 <br/>
 
-<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2KEV2MSBTF99U">![Donate!](https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif)</a>
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6GTTAQWCGBMVA">![Donate!](https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif)</a>

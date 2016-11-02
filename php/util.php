@@ -218,6 +218,28 @@ function mix2utf($str, $inv = '_')
 	return($str);
 }
 
+
+function utf8ize($mixed) 
+{
+	if(is_array($mixed) || is_object($mixed)) 
+	{
+        	foreach($mixed as $key => $value) 
+        	{
+            		$mixed[$key] = utf8ize($value);
+        	}
+    	} 
+    	else 
+	    	if(is_string($mixed)) 
+		       	$mixed = mix2utf($mixed);
+	return($mixed);
+}
+
+function safe_json_encode($value)
+{
+	$encoded = json_encode($value);
+	return(json_last_error()==JSON_ERROR_NONE ? $encoded : json_encode(utf8ize($value)));
+}
+
 function toLog( $str )
 {
 	global $log_file;
@@ -545,7 +567,7 @@ function sendFile( $filename, $contentType = null, $nameToSent = null, $mustExit
 		{
 			header('Content-Type: '.(is_null($contentType) ? 'application/octet-stream' : $contentType));
 			if(is_null($nameToSent))
-				$nameToSent = end(explode('/',$filename));
+				$nameToSent = getFileName($filename);
 			if(isset($_SERVER['HTTP_USER_AGENT']) && strstr($_SERVER['HTTP_USER_AGENT'],'MSIE'))
 				$nameToSent = rawurlencode($nameToSent);
 			header('Content-Disposition: attachment; filename="'.$nameToSent.'"');
@@ -687,7 +709,7 @@ function getTempDirectory()
 @ini_set('precision',16);
 @define('PHP_INT_MIN', ~PHP_INT_MAX);
 @define('XMLRPC_MAX_I4', 2147483647);
-@define('XMLRPC_MIN_I4', ~XMLRPC_MIN_I4);
+@define('XMLRPC_MIN_I4', ~XMLRPC_MAX_I4);
 @define('XMLRPC_MIN_I8', -9.999999999999999E+15);
 @define('XMLRPC_MAX_I8', 9.999999999999999E+15);
 

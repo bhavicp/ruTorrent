@@ -9,7 +9,6 @@
 
 var theUILang =
 {
- kbs				: "kB/s",
  General			: "Główne",
  Downloads			: "Pobieranie",
  Connection			: "Połączenie",
@@ -86,11 +85,11 @@ var theUILang =
  Logger 			: "Dziennik",
  s				: "s", // part of "kB/s"
  bytes				: "bajtów",
- KB				: "kB",
- MB				: "MB",
- GB				: "GB",
- TB				: "TB",
- PB				: "PB",
+ KB				: "KiB",
+ MB				: "MiB",
+ GB				: "GiB",
+ TB				: "TiB",
+ PB				: "PiB",
  Loading			: "Wczytywanie...",
  Torrent_file			: "Plik Torrent",
  Torrent_URL			: "Adres pliku Torrent",
@@ -158,8 +157,6 @@ var theUILang =
  EnableTracker			: "Włącz",
  ClientVersion			: "Klienty",
  Flags				: "Flagi",
- PeerDL				: "Peer DL",
- PeerDownloaded			: "Peer Downloaded",
  ReqTimeout			: "Czas odpowiedzi minął",
  GetTrackerMessage		: "Odbierz wiadomości z trackera",
  Help				: "Pomoc",
@@ -245,6 +242,7 @@ var theUILang =
  scrapeUpdate			: "Ostatnio aktualizowany",
  trkInterval			: "Interwał",
  logAutoSwitch			: "Automatycznie przejdź do zakładki 'Log'",
+ showLabelSize			: "Show label size",
  phpParameterUnavailable	: "Ustawienie PHP 'register_argc_argv' jest wyłączone! Poproś administratora o zmianę, inaczej niektóre wtyczki nie będą poprawnie działać.",
  addTorrentFailedURL		: "Dodawanie torrenta - niepowodzenie! Nie udało się pobrać URL.",
  addTorrentFailedFile		: "Dodawanie torrenta - niepowodzenie! Pobrana zawartość nie jest poprawnym plikiem torrent.",
@@ -272,7 +270,10 @@ var theUILang =
  showSpeedInTitle		: "Pokaż prędkość w tytule",
  badTempPath 			: "Użytkownik webservera nie ma czytelnego/pisanego/wykonalnego dostępu do katalogu. ruTorrent nie zadziała",
  badTempPath2			: "Użytkownik rTorrent nie ma czytelnego/pisanego/wykonalnego dostępu do katalogu. ruTorrent nie zadziała.",
- doRandomizeHash		: "Randomize info hashes for cross-seeding",
- Recreate_files			: "Queue files recreation",
- Address			: "Address"
+ doRandomizeHash		: "Mieszaj info hash'e dla cross-seeding'u",
+ Recreate_files 		: "Ponowne utworzenie plików kolejek",
+ Address			: "Adres",
+ PeerDL 			: "Peer DL",
+ PeerDownloaded 		: "Peer pobrał",
+ Save_path			: "Ścieżka zapisu"
 };

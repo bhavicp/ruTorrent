@@ -28,7 +28,8 @@ var theWebUI =
 				{ text: theUILang.Seeds, 		width: "60px", 	id: "seeds",		type: TYPE_NUMBER },
 				{ text: theUILang.Priority, 		width: "80px", 	id: "priority",		type: TYPE_NUMBER },
 				{ text: theUILang.Created_on,		width: "100px", id: "created",		type: TYPE_NUMBER },
-				{ text: theUILang.Remaining, 		width: "90px", 	id: "remaining",	type: TYPE_NUMBER }
+				{ text: theUILang.Remaining, 		width: "90px", 	id: "remaining",	type: TYPE_NUMBER },
+				{ text: theUILang.Save_path,		width: "200px", id: "save_path",	type: TYPE_STRING }
 			],
 			container:	"List",
 			format:		theFormatter.torrents,
@@ -153,7 +154,8 @@ var theWebUI =
 		"webui.timeformat":		0,
 		"webui.dateformat":		0,
 		"webui.speedintitle":		0,
-		"webui.log_autoswitch":		1
+		"webui.log_autoswitch":		1,
+		"webui.show_labelsize":		1
 	},
 	showFlags: 0,
 	total:
@@ -901,10 +903,10 @@ var theWebUI =
 	trkIsPrivate: function(url)
 	{
 		return(
-			(/(http|https|udp):\/\/(?:[0-9]{1,3}\.){3}[0-9]{1,3}((:(\d){2,5})|).*\/an.*\?.+=.+/i).test(url) ||
+			(/(http|https|udp):\/\/(?:[0-9]{1,3}\.){3}[0-9]{1,3}((:(\d){2,5})|).*(\/a.*(\?.+=.+|\/.+)|\?.+=.+)/i).test(url) ||
 			(/(http|https|udp):\/\/(?:[0-9]{1,3}\.){3}[0-9]{1,3}((:(\d){2,5})|)\/.*[0-9a-z]{8,32}\/an/i).test(url) ||
-			(/(http|https|udp):\/\/[a-z0-9-\.]+\.[a-z]{2,4}((:(\d){2,5})|).*\/an.*\?.+=.+/i).test(url) ||
-			(/(http|https|udp):\/\/[a-z0-9-\.]+\.[a-z]{2,4}((:(\d){2,5})|)\/.*[0-9a-z]{8,32}\/an/i).test(url) ? 1 : 0 );
+			(/(http|https|udp):\/\/[a-z0-9-\.]+\.[a-z]{2,253}((:(\d){2,5})|).*(\/a.*(\?.+=.+|\/.+)|\?.+=.+)/i).test(url) ||
+			(/(http|https|udp):\/\/[a-z0-9-\.]+\.[a-z]{2,253}((:(\d){2,5})|)\/.*[0-9a-z]{8,32}\/an/i).test(url) ? 1 : 0 );
 	},
 
    	trkSelect: function(e, id) 
@@ -1617,7 +1619,7 @@ var theWebUI =
 			}
 		});
 		this.getAllTrackers(tArray);
-		this.loadLabels(data.labels);
+		this.loadLabels(data.labels, data.labels_size);
 		this.updateLabels(wasRemoved);
 		this.loadTorrents();
 		this.getTotal();
@@ -1831,26 +1833,27 @@ var theWebUI =
 		return(false);
 	},
 
-	loadLabels: function(d) 
+	loadLabels: function(c, s) 
 	{
 		var p = $("#lbll");
 		var temp = new Array();
 		var keys = new Array();
-		for(var lbl in d)
+		for(var lbl in c)
 			keys.push(lbl);
 		keys.sort();
 
 		for(var i=0; i<keys.length; i++) 
 		{
 			var lbl = keys[i];
-			this.labels["-_-_-" + lbl + "-_-_-"] = d[lbl];
+			var lblSize = this.settings["webui.show_labelsize"] ? " ; " + theConverter.bytes(s[lbl], 2) : "";
+			this.labels["-_-_-" + lbl + "-_-_-"] = c[lbl] + lblSize;
 			this.cLabels[lbl] = 1;
 			temp["-_-_-" + lbl + "-_-_-"] = true;
 			if(!$$("-_-_-" + lbl + "-_-_-")) 
 			{
 				p.append( $("<LI>").
 					attr("id","-_-_-" + lbl + "-_-_-").
-					html(escapeHTML(lbl) + "&nbsp;(<span id=\"-_-_-" + lbl + "-_-_-c\">" + d[lbl] + "</span>)").
+					html(escapeHTML(lbl) + "&nbsp;(<span id=\"-_-_-" + lbl + "-_-_-c\">" + c[lbl] + lblSize + "</span>)").
 					mouseclick(theWebUI.labelContextMenu).addClass("cat") );
 			}
 		}
@@ -2160,7 +2163,7 @@ var theWebUI =
 			$("#pe").text(d.peers_actual + " " + theUILang.of + " " + d.peers_all + " " + theUILang.connected);
 			$("#et").text(theConverter.time(Math.floor((new Date().getTime()-theWebUI.deltaTime)/1000-iv(d.state_changed)),true));
 			$("#wa").text(theConverter.bytes(d.skip_total,2));
-	        	$("#bf").text(d.base_path);
+	        	$("#bf").text(d.save_path);
 	        	$("#co").text(theConverter.date(iv(d.created)+theWebUI.deltaTime/1000));
 			$("#tu").text(	$type(this.trackers[this.dID]) && $type(this.trackers[this.dID][d.tracker_focus]) ? this.trackers[this.dID][d.tracker_focus].name : '');
 	        	$("#hs").text(this.dID.substring(0,40));

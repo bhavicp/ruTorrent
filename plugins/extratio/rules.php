@@ -20,7 +20,7 @@ class rRatioRule
 	public $ratio;
 	public $channel;
 
-	public function	rRatioRule( $name, $reason = RR_LABEL_CONTAIN, $pattern = '', $enabled = 0, $no = 0, $ratio = '', $channel = '' )
+	public function	__construct( $name, $reason = RR_LABEL_CONTAIN, $pattern = '', $enabled = 0, $no = 0, $ratio = '', $channel = '' )
 	{
 		$this->name = $name;
 		$this->reason = $reason;
@@ -39,10 +39,10 @@ class rRatioRule
 			rTorrentSettings::get()->pushEvent( "CheckTracker", array( "announce"=>$trk, "result"=>&$ret ) );
 			if( $ret ||
 				(is_null($ret) &&
-					(preg_match( '`^(http|https|udp)://(?:[0-9]{1,3}\.){3}[0-9]{1,3}((:(\d){2,5})|).*/an.*\?.+=.+`i', $trk ) ||
+					(preg_match( '`^(http|https|udp)://(?:[0-9]{1,3}\.){3}[0-9]{1,3}((:(\d){2,5})|).*(\/a.*(\?.+=.+|\/.+)|\?.+=.+)`i', $trk ) ||
 					preg_match( '`^(http|https|udp)://(?:[0-9]{1,3}\.){3}[0-9]{1,3}((:(\d){2,5})|)/.*[0-9a-z]{8,32}/an`i', $trk ) ||
-					preg_match( '`^(http|https|udp)://[a-z0-9-\.]+\.[a-z]{2,4}((:(\d){2,5})|).*/an.*\?.+=.+`i', $trk ) ||
-					preg_match( '`^(http|https|udp)://[a-z0-9-\.]+\.[a-z]{2,4}((:(\d){2,5})|)/.*[0-9a-z]{8,32}/an`i', $trk ))) )
+					preg_match( '`^(http|https|udp)://[a-z0-9-\.]+\.[a-z]{2,253}((:(\d){2,5})|).*(\/a.*(\?.+=.+|\/.+)|\?.+=.+)`i', $trk ) ||
+					preg_match( '`^(http|https|udp)://[a-z0-9-\.]+\.[a-z]{2,253}((:(\d){2,5})|)/.*[0-9a-z]{8,32}/an`i', $trk ))) )
 				return(true);
 		}
 		return(false);
