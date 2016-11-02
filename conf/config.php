@@ -1,5 +1,6 @@
 <?php
 	// configuration parameters
+	$user = posix_getpwuid(posix_geteuid())['name'];
 
 	// for snoopy client
 	@define('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 6.0; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0', true);
@@ -18,24 +19,17 @@
 
 	$schedule_rand = 10;			// rand for schedulers start, +0..X seconds
 
-	$do_diagnostic = true;
-	$log_file = '/tmp/errors.log';		// path to log file (comment or leave blank to disable logging)
+	$do_diagnostic = false;
+	$log_file = '';		// path to log file (comment or leave blank to disable logging)
 
 	$saveUploadedTorrents = true;		// Save uploaded torrents to profile/torrents directory or not
 	$overwriteUploadedTorrents = false;     // Overwrite existing uploaded torrents in profile/torrents directory or make unique name
 
-	$topDirectory = '/';			// Upper available directory. Absolute path with trail slash.
-	$forbidUserSettings = false;
+	$topDirectory = '/home/$user/';			// Upper available directory. Absolute path with trail slash.
+	$forbidUserSettings = true;
 
-	$scgi_port = 5000;
-	$scgi_host = "127.0.0.1";
-
-	// For web->rtorrent link through unix domain socket 
-	// (scgi_local in rtorrent conf file), change variables 
-	// above to something like this:
-	//
-	// $scgi_port = 0;
-	// $scgi_host = "unix:///tmp/rpc.socket";
+	$scgi_port = 0;
+	$scgi_host = "unix:////home/$user/.config/rtorrent/rpc.socket";
 
 	$XMLRPCMountPoint = "/RPC2";		// DO NOT DELETE THIS LINE!!! DO NOT COMMENT THIS LINE!!!
 
@@ -52,8 +46,8 @@
 		"localhost",
 	);
 
-	$profilePath = '../share';		// Path to user profiles
-	$profileMask = 0777;			// Mask for files and directory creation in user profiles.
+	$profilePath = '/home/$user/.config/rutorrent';		// Path to user profiles
+	$profileMask = 0770;			// Mask for files and directory creation in user profiles.
 						// Both Webserver and rtorrent users must have read-write access to it.
 						// For example, if Webserver and rtorrent users are in the same group then the value may be 0770.
 
