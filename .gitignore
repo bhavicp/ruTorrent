@@ -34,7 +34,6 @@ plugins/plimits
 plugins/localnews
 plugins/hints
 plugins/dmca
-plugins/autodl-irssi
 plugins/xnfo/
 plugins/xshoutbox/
 plugins/donecolor/
