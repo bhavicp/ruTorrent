@@ -297,7 +297,7 @@ class Snoopy
 	{
 		foreach( $this->headers as $i=>$header )
 			if(preg_match_all("/^Content-Disposition:.*(\s|;)filename=\"(.*)\.torrent\"/i",$header,$matches) && (count($matches)>2))
-				return( str_replace( '/', '_', $matches[2][0].".torrent" ) );
+				return( str_replace( '/', '_', rawurldecode($matches[2][0]).".torrent" ) );
 		return(false);	
 	}
 
@@ -317,7 +317,7 @@ class Snoopy
 		if(!empty($this->agent))
 			$headers .= "User-Agent: ".$this->agent."\r\n";
 		if(!empty($this->host) && !isset($this->rawheaders['Host']))
-			$headers .= "Host: ".$this->host."\r\n";
+			$headers .= "Host: ".$this->host.($this->port == 80 ? "" : ":".$this->port)."\r\n";
 		if(!empty($this->accept))
 			$headers .= "Accept: ".$this->accept."\r\n";
 		if($this->use_gzip && function_exists("gzinflate")) 
@@ -454,7 +454,7 @@ class Snoopy
 		if(!empty($this->agent))
 			$headers[] = "User-Agent: ".$this->agent;
 		if(!empty($this->host) && !isset($this->rawheaders['Host']))
-			$headers[] = "Host: ".$this->host;
+			$headers[] = "Host: ".$this->host.($this->port == 443 ? "" : ":".$this->port);
 		if(!empty($this->accept))
 			$headers[] = "Accept: ".$this->accept;
 		if(!empty($this->referer))

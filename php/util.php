@@ -237,7 +237,12 @@ function utf8ize($mixed)
 function safe_json_encode($value)
 {
 	$encoded = json_encode($value);
-	return(json_last_error()==JSON_ERROR_NONE ? $encoded : json_encode(utf8ize($value)));
+	return(!function_exists('json_last_error') || json_last_error()==JSON_ERROR_NONE ? $encoded : json_encode(utf8ize($value)));
+}
+
+function sortArrayTime( $a, $b )
+{
+	return( ($a["time"] > $b["time"]) ? 1 : (($a["time"] < $b["time"]) ? -1 : 0) );
 }
 
 function toLog( $str )

@@ -105,7 +105,7 @@ function makeContent()
 				'</span>'+				
 				'<label>'+theUILang.Label+':</label><input type="text" id="tadd_label" name="tadd_label" class="TextboxLarge" /><select id="tadd_label_select"></select><br/>'+
 				'<hr/>'+
-				'<label>'+theUILang.Torrent_file+':</label><input type="file" multiple="multiple" name="torrent_file[]" id="torrent_file" accept="application/x-bittorrent" class="TextboxLarge"/><br/>'+
+				'<label>'+theUILang.Torrent_file+':</label><input type="file" multiple="multiple" name="torrent_file[]" id="torrent_file" accept=".torrent,application/x-bittorrent" class="TextboxLarge"/><br/>'+
 				'<label>&nbsp;</label><input type="submit" value="'+theUILang.add_button+'" id="add_button" class="Button" /><br/>'+
 			'</form>'+
 			'<hr/>'+
@@ -208,7 +208,6 @@ function makeContent()
 		true);
 	theDialogManager.make("dlgHelp",theUILang.Help,
 		'<div class="content">'+
-			'<center>'+
 				'<table width=100% border=0>'+
 					'<tr><td><strong>F1</strong></td><td>'+theUILang.This_screen+'</td></tr>'+
 					'<tr><td><strong><strong>Ctrl-F1</strong></td><td><a href="javascript://void();" onclick="theDialogManager.toggle(\'dlgAbout\'); return(false);">'+theUILang.About_program+'</a></td></tr>'+
@@ -221,7 +220,6 @@ function makeContent()
 					'<tr><td><strong><strong>Ctrl-A</strong></td><td>'+theUILang.Select_all+'</td></tr>'+
 					'<tr><td><strong><strong>Ctrl-Z</strong></td><td>'+theUILang.Deselect_all+'</td></tr>'+
 				'</table>'+
-			'</center>'+
 		'</div>');
 	theDialogManager.make("dlgAbout","ruTorrent v"+theWebUI.version,
 		'<div class="content"> <strong>'+theUILang.Developers+'</strong>:<br/><br/>'+
@@ -240,6 +238,10 @@ function makeContent()
 		'<div class="aright buttons-list"><input type="button" class="OK Button" value="'+theUILang.ok+'" onclick="theWebUI.createLabel();theDialogManager.hide(\'dlgLabel\');return(false);" />'+
 			'<input type="button" class="Cancel Button" value="'+theUILang.Cancel+'"/></div>',
 		true);
+	theDialogManager.setHandler('dlgLabel','afterShow',function()
+	{
+		setTimeout(function(){$("#txtLabel").off('focus').on('focus',function() { $(this).select(); } ).focus();}, 0);
+	});
 	theDialogManager.make("yesnoDlg","",
 		'<div class="content" id="yesnoDlg-content"></div>'+
 		'<div id="yesnoDlg-buttons" class="aright buttons-list"><input type="button" class="OK Button" value="'+theUILang.ok+'" id="yesnoOK">'+
@@ -332,6 +334,9 @@ function makeContent()
 					"</div>"+
 					"<div class=\"op100l\"><input type=\"checkbox\" id=\"webui.show_labelsize\"/>"+
 						"<label for=\"webui.show_labelsize\" id=\"lbl_webui.show_labelsize\" >"+theUILang.showLabelSize+"</label>"+
+					"</div>"+
+					"<div class=\"op100l\"><input type=\"checkbox\" id=\"webui.register_magnet\"/>"+
+						"<label for=\"webui.register_magnet\" id=\"lbl_webui.register_magnet\" >"+theUILang.registerMagnet+"</label>"+
 					"</div>"+
 					"<div class=\"op100l\">"+
 						"<label for=\"webui.retry_on_error\">"+theUILang.retryOnErrorTitle+":</label>&nbsp;"+
@@ -1032,6 +1037,19 @@ function correctContent()
 			"dht_add_node"		:	{ name: "dht.add_node", prm: 1 },
 			"dht_statistics"	:	{ name: "dht.statistics", prm: 0 },
 			"load"			:	{ name: "load.normal", prm: 1 }
+		});
+	}
+	if(theWebUI.systemInfo.rTorrent.apiVersion>=10)	
+	{
+		$.extend(theRequestManager.aliases, 
+		{
+			"get_port_open"		: { name: "network.listen.is_open", prm: 0 },
+			"get_port_random" 	: { name: "network.port.randomize", prm: 0 },
+			"get_port_range" 	: { name: "network.port.range", prm: 0 },
+			"set_port_open"		: { name: "network.listen.open", prm: 1 },
+			"set_port_random"	: { name: "network.port.randomize.set", prm: 1 },
+			"set_port_range"	: { name: "network.port.range.set", prm: 1 },
+			"network.listen.port" 	: { name: "network.port", prm: 0 }
 		});
 	}
 	$("#rtorrentv").text(theWebUI.systemInfo.rTorrent.version+"/"+theWebUI.systemInfo.rTorrent.libVersion);
