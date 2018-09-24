@@ -19,8 +19,8 @@
 
 	$schedule_rand = 10;			// rand for schedulers start, +0..X seconds
 
-	$do_diagnostic = false;
-	$log_file = '';		// path to log file (comment or leave blank to disable logging)
+	$do_diagnostic = true;
+	$log_file = '/tmp/rutorrent-$user.log';		// path to log file (comment or leave blank to disable logging)
 
 	$saveUploadedTorrents = true;		// Save uploaded torrents to profile/torrents directory or not
 	$overwriteUploadedTorrents = false;     // Overwrite existing uploaded torrents in profile/torrents directory or make unique name
@@ -35,8 +35,8 @@
 
 	$pathToExternals = array(
 		"php" 	=> '',			// Something like /usr/bin/php. If empty, will be found in PATH.
-		"curl"	=> '',			// Something like /usr/bin/curl. If empty, will be found in PATH.
-		"gzip"	=> '',			// Something like /usr/bin/gzip. If empty, will be found in PATH.
+		"curl"	=> '/usr/bin/curl',			// Something like /usr/bin/curl. If empty, will be found in PATH.
+		"gzip"	=> '/bin/gzip',			// Something like /usr/bin/gzip. If empty, will be found in PATH.
 		"id"	=> '',			// Something like /usr/bin/id. If empty, will be found in PATH.
 		"stat"	=> '',			// Something like /usr/bin/stat. If empty, will be found in PATH.
 	);
@@ -46,7 +46,7 @@
 		"localhost",
 	);
 
-	$profilePath = '/home/$user/.config/rutorrent';		// Path to user profiles
+	$profilePath = "/home/$user/.config/rutorrent";		// Path to user profiles
 	$profileMask = 0770;			// Mask for files and directory creation in user profiles.
 						// Both Webserver and rtorrent users must have read-write access to it.
 						// For example, if Webserver and rtorrent users are in the same group then the value may be 0770.
