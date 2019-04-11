@@ -20,12 +20,12 @@
 	$schedule_rand = 10;			// rand for schedulers start, +0..X seconds
 
 	$do_diagnostic = true;
-	$log_file = '/tmp/rutorrent-$user.log';		// path to log file (comment or leave blank to disable logging)
+	$log_file = "/tmp/rutorrent-$user.log";		// path to log file (comment or leave blank to disable logging)
 
 	$saveUploadedTorrents = true;		// Save uploaded torrents to profile/torrents directory or not
 	$overwriteUploadedTorrents = false;     // Overwrite existing uploaded torrents in profile/torrents directory or make unique name
 
-	$topDirectory = '/home/$user/';			// Upper available directory. Absolute path with trail slash.
+	$topDirectory = "/home/$user/";			// Upper available directory. Absolute path with trail slash.
 	$forbidUserSettings = true;
 
 	$scgi_port = 0;

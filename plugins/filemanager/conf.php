@@ -4,12 +4,12 @@ $fm['tempdir'] = '/tmp';		// path were to store temporary data ; must be writabl
 $fm['mkdperm'] = 755; 		// default permission to set to new created directories
 
 // set with fullpath to binary or leave empty
-$pathToExternals['rar'] = '';
-$pathToExternals['zip'] = '';
-$pathToExternals['unzip'] = '';
-$pathToExternals['tar'] = '';
-$pathToExternals['gzip'] = '';
-$pathToExternals['bzip2'] = '';
+$pathToExternals['rar'] = '/usr/bin/rar';
+$pathToExternals['zip'] = '/usr/bin/zip';
+$pathToExternals['unzip'] = '/usr/bin/unzip';
+$pathToExternals['tar'] = '/bin/tar';
+$pathToExternals['gzip'] = '/bin/gzip';
+$pathToExternals['bzip2'] = '/bin/bzip2';
 
 // archive mangling, see archiver man page before editing
 
