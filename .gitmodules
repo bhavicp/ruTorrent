@@ -4,3 +4,6 @@
 [submodule "plugins/autodl-irssi"]
 	path = plugins/autodl-irssi
 	url = https://github.com/autodl-community/autodl-irssi.git
+[submodule "plugins/rutorrent-thirdparty-plugins"]
+	path = plugins/rutorrent-thirdparty-plugins
+	url = https://github.com/Micdu70/rutorrent-thirdparty-plugins.git
