@@ -1,0 +1,9 @@
+plugin.description: The plug-in adds to status bar an indicator of available disk space (with quota support).
+plugin.author: Novik
+plugin.version: 3.3
+rtorrent.need: 1
+rtorrent.remote: error
+rtorrent.version: 0.8.6
+rtorrent.external.error: php,quota
+rtorrent.php.error: update.php,pauser.php,rquota.php,conf.php
+rtorrent.script.error: run.sh
